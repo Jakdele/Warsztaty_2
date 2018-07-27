@@ -2,23 +2,33 @@ package pl.coderslab.admin;
 
 import pl.coderslab.model.User;
 
+import java.util.Scanner;
+
+import static pl.coderslab.admin.AdminTools.closeApp;
+import static pl.coderslab.admin.AdminTools.getInt;
+import static pl.coderslab.admin.AdminTools.scanner;
+
 public class UserAdmin {
 
     static void userOptions() {
         while (true) {
             User.loadAll();
-            System.out.println("What would you like to do: edit, add, or delete a user?\nType quit to quit the app.");
-            String userAction = AdminTools.scanner.nextLine();
-            if (userAction.equals("edit")) {
-                editUser();
-            } else if (userAction.equals("add")) {
-                addUser();
-            } else if (userAction.equals("delete")) {
-                deleteUser();
-            } else if(userAction.equals("quit")){
-                AdminTools.closeApp();
-            } else {
-                System.out.println("Input incorrect, try again");
+            System.out.println("What would you like to do: \n(1) edit user\n(2) add a new user\n(3) delete a user\n(0) quit the app");
+            switch (getInt(scanner)) {
+                case 1:
+                    addUser();
+                    break;
+                case 2:
+                    editUser();
+                    break;
+                case 3:
+                    deleteUser();
+                    break;
+                case 0:
+                    closeApp();
+                    break;
+                default:
+                    System.out.println("Incorrect input - try again.");
             }
         }
     }
@@ -65,7 +75,7 @@ public class UserAdmin {
             default:
                 break;
         }
-        return AdminTools.scanner.nextLine();
+        return scanner.nextLine();
     }
     private static int getIntFromUser(Type type) {
         switch (type) {
@@ -76,12 +86,12 @@ public class UserAdmin {
                 System.out.println("Enter id of the group user belongs to:");
                 break;
         }
-        while (!AdminTools.scanner.hasNextInt()){
-            AdminTools.scanner.next();
+        while (!scanner.hasNextInt()){
+            scanner.next();
             System.out.println("Wrong input - you have to enter a number");
         }
-        int id = AdminTools.scanner.nextInt();
-        AdminTools.scanner.nextLine();
+        int id = scanner.nextInt();
+        scanner.nextLine();
         return id;
     }
 

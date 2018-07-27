@@ -2,25 +2,34 @@ package pl.coderslab.admin;
 
 import pl.coderslab.model.Group;
 
+import static pl.coderslab.admin.AdminTools.closeApp;
+import static pl.coderslab.admin.AdminTools.getInt;
+import static pl.coderslab.admin.AdminTools.scanner;
+
 public class GroupAdmin {
 
     static void groupOptions() {
         while (true) {
             Group.loadAll();
-            System.out.println("What would you like to do: edit, add, or delete a group?\nType quit to quit the app.");
-            String userAction = AdminTools.scanner.nextLine();
-            if (userAction.equals("edit")) {
-                editGroup();
-            } else if (userAction.equals("add")) {
-                addGroup();
-            } else if (userAction.equals("delete")) {
-                deleteGroup();
-            } else if(userAction.equals("quit")){
-                AdminTools.closeApp();
-            } else {
-                System.out.println("Input incorrect, try again");
+            System.out.println("What would you like to do: \n(1) edit group\n(2) add a new group\n(3)delete a group\n(0) quit the app");
+            switch (getInt(scanner)) {
+                case 1:
+                    addGroup();
+                    break;
+                case 2:
+                    editGroup();
+                    break;
+                case 3:
+                    deleteGroup();
+                    break;
+                case 0:
+                    closeApp();
+                    break;
+                default:
+                    System.out.println("Incorrect input - try again.");
             }
         }
+
     }
 
     public static void editGroup(){

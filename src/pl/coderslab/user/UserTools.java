@@ -1,15 +1,19 @@
-package pl.coderslab.admin;
+package pl.coderslab.user;
 
+
+import pl.coderslab.admin.AdminTools;
 import pl.coderslab.model.Solution;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static pl.coderslab.admin.AdminTools.getInt;
+
 
 public class UserTools {
     static Scanner scann;
     static int userId;
-    public static void main(String[] args) {
+    public static void userPanel() {
         scann = new Scanner(System.in);
         userId = getIntFromUser(Type.USER_ID);
         userToolsOptions();
@@ -18,17 +22,21 @@ public class UserTools {
 
     public static void userToolsOptions(){
         while (true) {
-            System.out.println("What would you like to do: add (adds a solution), show (view your solutions) or quit?");
-            String userAction = scann.nextLine();
-            if(userAction.equals("add")){
-                addSolution(userId);
-            } else if(userAction.equals("show")) {
-                viewSolutions(userId);
-            }else if(userAction.equals("quit")){
-                AdminTools.closeApp();
-            } else {
-                System.out.println("Incorrect input - try again.");
-            }
+              System.out.println("What would you like to do: \n(1) add (add a solution)\n(2) show (view your solutions)\n(0) quit");
+              switch (getInt(scann)){
+                  case 1:
+                      addSolution(userId);
+                      break;
+                  case 2:
+                      viewSolutions(userId);
+                      break;
+                  case 0:
+                      AdminTools.closeApp();
+                      break;
+                  default:
+                      System.out.println("Incorrect input - try again.");
+
+              }
         }
     }
 

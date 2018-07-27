@@ -144,8 +144,6 @@ public class Solution {
 
     public static ArrayList<Solution> loadAll (){
         try{
-
-
             ArrayList<Solution> solutions = new ArrayList<>();
             String sql = "SELECT * FROM solution";
             PreparedStatement preparedStatement;
@@ -179,6 +177,10 @@ public class Solution {
             preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, users_id);
             ResultSet rs = preparedStatement.executeQuery();
+            if(!rs.next()) {
+                System.out.println("You have no solutions in database.");
+            }else {
+                rs.beforeFirst(); }
             while(rs.next()) {
                 Solution loadedSolution = new Solution();
                 loadedSolution.id = rs.getInt("id");
@@ -198,15 +200,18 @@ public class Solution {
         }
         return null;
     }
-    public static ArrayList<Solution> loadAllNotDone (int users_id) {
+    public static ArrayList<Solution> loadAllNotDone (int userId) {
         try {
             ArrayList<Solution> solutions = new ArrayList<>();
             String sql = "SELECT * FROM solution JOIN users ON solution.users_id=users.id WHERE users.id=? AND solution.description IS NULL ORDER BY created DESC";
             PreparedStatement preparedStatement;
             preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
-            preparedStatement.setInt(1, users_id);
+            preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
-            if(!rs.next()) System.out.println("You have no exercises pending");
+            if(!rs.next()) {
+                System.out.println("You have no exercises pending");
+            }else {
+                rs.beforeFirst(); }
             while (rs.next()) {
                     Solution loadedSolution = new Solution();
                     loadedSolution.id = rs.getInt("id");

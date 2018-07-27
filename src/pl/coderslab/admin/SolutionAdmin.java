@@ -3,25 +3,28 @@ package pl.coderslab.admin;
 import pl.coderslab.model.Exercise;
 import pl.coderslab.model.Solution;
 import pl.coderslab.model.User;
-
-import java.sql.Date;
-import java.sql.Timestamp;
+import static pl.coderslab.admin.AdminTools.scanner;
+import static pl.coderslab.admin.AdminTools.getInt;
 
 public class SolutionAdmin {
    // private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static void solutionOptions() {
         while (true) {
             Solution.loadAll();
-            System.out.println("What would you like to do: add (add new solution for a user), view (view user)?\nType quit to quit the app.");
-            String userAction = AdminTools.scanner.nextLine();
-            if (userAction.equals("add")) {
-                addSolution();
-            } else if (userAction.equals("view")) {
-                viewUser();
-            } else if(userAction.equals("quit")){
-                AdminTools.closeApp();
-            } else {
-                System.out.println("Input incorrect, try again");
+            System.out.println("What would you like to do: \n(1) add (add new solution for a user)\n(2) view user with specified id\n(0) quit the app");
+            switch (getInt(scanner)){
+                case 1:
+                    addSolution();
+                    break;
+                case 2:
+                    viewUser();
+                    break;
+                case 0:
+                    AdminTools.closeApp();
+                    break;
+                default:
+                    System.out.println("Incorrect input - try again.");
+
             }
         }
     }
