@@ -1,9 +1,9 @@
-package pl.coderslab.admin;
+package pl.coderslab.programmingSchool.admin;
 
-import pl.coderslab.model.Exercise;
-import static pl.coderslab.admin.AdminTools.scanner;
-import static pl.coderslab.admin.AdminTools.getInt;
-import static pl.coderslab.admin.AdminTools.closeApp;
+import pl.coderslab.programmingSchool.model.Exercise;
+import static pl.coderslab.programmingSchool.admin.AdminTools.scanner;
+import static pl.coderslab.programmingSchool.admin.AdminTools.getInt;
+import static pl.coderslab.programmingSchool.admin.AdminTools.closeApp;
 
 public class ExerciseAdmin {
 
@@ -48,6 +48,7 @@ public class ExerciseAdmin {
 
     public static void deleteExercise() {
         int id = getID();
+        if(AdminTools.getUserConfirmation() == true && id != 0)
         Exercise.delete(id);
     }
 

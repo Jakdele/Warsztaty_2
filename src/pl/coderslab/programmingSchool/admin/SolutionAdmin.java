@@ -1,10 +1,10 @@
-package pl.coderslab.admin;
+package pl.coderslab.programmingSchool.admin;
 
-import pl.coderslab.model.Exercise;
-import pl.coderslab.model.Solution;
-import pl.coderslab.model.User;
-import static pl.coderslab.admin.AdminTools.scanner;
-import static pl.coderslab.admin.AdminTools.getInt;
+import pl.coderslab.programmingSchool.model.Exercise;
+import pl.coderslab.programmingSchool.model.Solution;
+import pl.coderslab.programmingSchool.model.User;
+import static pl.coderslab.programmingSchool.admin.AdminTools.scanner;
+import static pl.coderslab.programmingSchool.admin.AdminTools.getInt;
 
 public class SolutionAdmin {
     static void solutionOptions() {

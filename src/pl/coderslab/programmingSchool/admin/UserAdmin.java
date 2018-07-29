@@ -1,12 +1,10 @@
-package pl.coderslab.admin;
+package pl.coderslab.programmingSchool.admin;
 
-import pl.coderslab.model.User;
+import pl.coderslab.programmingSchool.model.User;
 
-import java.util.Scanner;
-
-import static pl.coderslab.admin.AdminTools.closeApp;
-import static pl.coderslab.admin.AdminTools.getInt;
-import static pl.coderslab.admin.AdminTools.scanner;
+import static pl.coderslab.programmingSchool.admin.AdminTools.closeApp;
+import static pl.coderslab.programmingSchool.admin.AdminTools.getInt;
+import static pl.coderslab.programmingSchool.admin.AdminTools.scanner;
 
 public class UserAdmin {
 
@@ -57,6 +55,7 @@ public class UserAdmin {
 
     public static void deleteUser() {
         int id = getIntFromUser(Type.USER_ID);
+        if(AdminTools.getUserConfirmation() == true && id != 0)
         User.delete(id);
     }
 

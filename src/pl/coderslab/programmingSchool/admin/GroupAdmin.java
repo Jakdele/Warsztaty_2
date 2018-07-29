@@ -1,10 +1,10 @@
-package pl.coderslab.admin;
+package pl.coderslab.programmingSchool.admin;
 
-import pl.coderslab.model.Group;
+import pl.coderslab.programmingSchool.model.Group;
 
-import static pl.coderslab.admin.AdminTools.closeApp;
-import static pl.coderslab.admin.AdminTools.getInt;
-import static pl.coderslab.admin.AdminTools.scanner;
+import static pl.coderslab.programmingSchool.admin.AdminTools.closeApp;
+import static pl.coderslab.programmingSchool.admin.AdminTools.getInt;
+import static pl.coderslab.programmingSchool.admin.AdminTools.scanner;
 
 public class GroupAdmin {
 
@@ -48,6 +48,7 @@ public class GroupAdmin {
 
     public static void deleteGroup() {
         int id = getID();
+        if(AdminTools.getUserConfirmation() == true && id != 0)
         Group.delete(id);
     }
 

@@ -1,53 +1,46 @@
-package pl.coderslab.model;
+package pl.coderslab.programmingSchool.model;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class Exercise {
+public class Group {
     private int id;
-    private String title;
-    private String description;
+    private String name;
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Group() {
     }
 
-    public Exercise() {
-    }
-
-    public Exercise(int id, String title, String description) {
+    public Group(int id, String name) {
         this.id = id;
-        this.title = title;
-        this.description = description;
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Exercise id: " + id +
-                " title: " + title + '\'' +
-                " description: " + description;
+        return "Group " +
+                "id: " + id +
+                " name: " + name ;
     }
 
     //Active Record
     public void saveToDb(){
         try {
             if(this.id==0) {
-                String sql = "INSERT INTO exercise(title, description) VALUES (?, ?)";
+                String sql = "INSERT INTO user_group(name) VALUES (?)";
                 String generatedColumns[] = {"ID"};
                 PreparedStatement preparedStatement;
                 preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql, generatedColumns);
-                preparedStatement.setString(1, this.title);
-                preparedStatement.setString(2, this.description);
+                preparedStatement.setString(1, this.name);
                 preparedStatement.executeUpdate();
                 ResultSet rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
@@ -55,13 +48,12 @@ public class Exercise {
                 }
 
             }else {
-                String sql = "UPDATE exercise SET title=?, description=? WHERE id =?";
+                String sql = "UPDATE user_group SET name=? WHERE id =?";
                 String generatedColumns[] = {"ID"};
                 PreparedStatement preparedStatement;
                 preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql, generatedColumns);
-                preparedStatement.setString(1, this.title);
-                preparedStatement.setString(2, this.description);
-                preparedStatement.setInt(3, this.id);
+                preparedStatement.setString(1, this.name);
+                preparedStatement.setInt(2, this.id);
                 preparedStatement.executeUpdate();
                 ResultSet rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
@@ -76,7 +68,7 @@ public class Exercise {
     public static void delete(int id) {
         try {
             if(id!=0) {
-                String sql = "DELETE FROM exercise WHERE id =?";
+                String sql = "DELETE FROM user_group WHERE id =?";
                 PreparedStatement preparedStatement;
                 preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
                 preparedStatement.setInt(1, id);
@@ -87,45 +79,49 @@ public class Exercise {
         }
     }
 
-    public static Exercise loadById (int id) { //
+    public static Group loadById (int id) { //
         try {
-            String sql = "SELECT * FROM exercise where id=?";
+            String sql = "SELECT * FROM user_group where id=?";
             PreparedStatement preparedStatement;
             preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
+            if(!rs.next()) {
+                System.out.println("There is no group in the database with that id.");
+            }else {
+                rs.beforeFirst(); }
             while(rs.next()){
-                Exercise loadedExercise = new Exercise();
-                loadedExercise.id = rs.getInt("id");
-                loadedExercise.title = rs.getString("title");
-                loadedExercise.description = rs.getString("description");
-                return  loadedExercise;
+                Group loadedGroup = new Group();
+                loadedGroup.id = rs.getInt("id");
+                loadedGroup.name = rs.getString("name");
+                return  loadedGroup;
             }
         } catch (SQLException e) {
         }
         return null;
     }
-    public static void printAllExercises(){
-        for(Exercise exercise: loadAll()){
-            System.out.println(exercise);
+
+
+    public static void printAllGroups(){
+        for(Group group: loadAll()){
+            System.out.println(group);
         }
     }
 
-    public static ArrayList<Exercise> loadAll (){
+    public static ArrayList<Group> loadAll (){
         try{
-            ArrayList<Exercise> exercises = new ArrayList<>();
-            String sql = "SELECT * FROM exercise";
+            ArrayList<Group> groups = new ArrayList<>();
+            String sql = "SELECT * FROM user_group";
             PreparedStatement preparedStatement;
             preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()) {
-                Exercise loadedExercise = new Exercise();
-                loadedExercise.id = rs.getInt("id");
-                loadedExercise.title = rs.getString("title");
-                loadedExercise.description = rs.getString("description");
-                exercises.add(loadedExercise);
+                Group loadedGroup = new Group();
+                loadedGroup.id = rs.getInt("id");
+                loadedGroup.name = rs.getString("name");
+                groups.add(loadedGroup);
             }
-            return exercises;
+            return groups;
         }catch (SQLException e) {
         }
 

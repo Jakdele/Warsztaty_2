@@ -1,12 +1,12 @@
-package pl.coderslab.user;
-import pl.coderslab.model.Solution;
-import pl.coderslab.model.User;
+package pl.coderslab.programmingSchool.user;
+import pl.coderslab.programmingSchool.model.Solution;
+import pl.coderslab.programmingSchool.model.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static pl.coderslab.admin.AdminTools.closeApp;
-import static pl.coderslab.admin.AdminTools.getInt;
+import static pl.coderslab.programmingSchool.admin.AdminTools.closeApp;
+import static pl.coderslab.programmingSchool.admin.AdminTools.getInt;
 
 
 public class UserTools {

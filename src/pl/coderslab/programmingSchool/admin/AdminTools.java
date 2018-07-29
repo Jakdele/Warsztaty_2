@@ -1,6 +1,6 @@
-package pl.coderslab.admin;
+package pl.coderslab.programmingSchool.admin;
 
-import pl.coderslab.model.DBManager;
+import pl.coderslab.programmingSchool.model.DBManager;
 
 import java.util.Scanner;
 
@@ -46,6 +46,21 @@ public class AdminTools {
         int id = scann.nextInt();
         scann.nextLine();
         return id;
+    }
+    public static boolean getUserConfirmation(){
+        while(true) {
+            System.out.println("Are you sure you want to delete this record \ny - yes\nn - no");
+            String answer = scanner.nextLine();
+            switch (answer) {
+                case "y":
+                    return true;
+                case "n":
+                    return false;
+                default:
+                    System.out.println("Enter 'y' to confirm, 'n' to cancel.");
+            }
+        }
+
     }
 
 }

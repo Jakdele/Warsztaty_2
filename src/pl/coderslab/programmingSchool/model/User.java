@@ -1,4 +1,4 @@
-package pl.coderslab.model;
+package pl.coderslab.programmingSchool.model;
 
 
 import org.mindrot.jbcrypt.BCrypt;

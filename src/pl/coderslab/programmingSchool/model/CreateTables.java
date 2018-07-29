@@ -1,4 +1,4 @@
-package pl.coderslab.model;
+package pl.coderslab.programmingSchool.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

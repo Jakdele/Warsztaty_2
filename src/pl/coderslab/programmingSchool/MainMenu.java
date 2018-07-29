@@ -1,12 +1,12 @@
-package pl.coderslab;
+package pl.coderslab.programmingSchool;
 
-import pl.coderslab.admin.AdminTools;
-import pl.coderslab.user.UserTools;
+import pl.coderslab.programmingSchool.admin.AdminTools;
+import pl.coderslab.programmingSchool.user.UserTools;
 
 import java.util.Scanner;
 
-import static pl.coderslab.admin.AdminTools.closeApp;
-import static pl.coderslab.admin.AdminTools.getInt;
+import static pl.coderslab.programmingSchool.admin.AdminTools.closeApp;
+import static pl.coderslab.programmingSchool.admin.AdminTools.getInt;
 
 public class MainMenu {
     public static void main(String[] args) {
