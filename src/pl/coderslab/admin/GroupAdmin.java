@@ -10,7 +10,7 @@ public class GroupAdmin {
 
     static void groupOptions() {
         while (true) {
-            Group.loadAll();
+            Group.printAllGroups();
             System.out.println("What would you like to do: \n(1) edit group\n(2) add a new group\n(3)delete a group\n(0) quit the app");
             switch (getInt(scanner)) {
                 case 1:

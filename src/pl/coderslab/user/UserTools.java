@@ -1,26 +1,32 @@
 package pl.coderslab.user;
-
-
-import pl.coderslab.admin.AdminTools;
 import pl.coderslab.model.Solution;
+import pl.coderslab.model.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static pl.coderslab.admin.AdminTools.closeApp;
 import static pl.coderslab.admin.AdminTools.getInt;
 
 
 public class UserTools {
     static Scanner scann;
-    static int userId;
-    public static void userPanel() {
+    public static void userPanel(String[] args) throws Exception {
+        int userID;
+        try {
+            userID = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            throw new Exception("Wrong user id.");
+        }
+        if(User.loadById(userID) == null) throw new Exception("Enter valid id.");
+
         scann = new Scanner(System.in);
-        userId = getIntFromUser(Type.USER_ID);
-        userToolsOptions();
+        userToolsOptions(userID);
     }
 
 
-    public static void userToolsOptions(){
+    public static void userToolsOptions(int userId){
         while (true) {
               System.out.println("What would you like to do: \n(1) add (add a solution)\n(2) show (view your solutions)\n(0) quit");
               switch (getInt(scann)){
@@ -31,7 +37,7 @@ public class UserTools {
                       viewSolutions(userId);
                       break;
                   case 0:
-                      AdminTools.closeApp();
+                      closeApp();
                       break;
                   default:
                       System.out.println("Incorrect input - try again.");
@@ -43,8 +49,11 @@ public class UserTools {
 
     public static void addSolution(int id){
         ArrayList<Solution> solutions = Solution.loadAllNotDone(id);
+        for (Solution solution : solutions) {
+            System.out.println(solution);
+        }
         if (solutions.isEmpty()){
-            userToolsOptions();
+            userToolsOptions(id);
         }
         int taskId = getIntFromUser(Type.SOLUTION_ID);
         String description = getDescription();
@@ -52,14 +61,17 @@ public class UserTools {
         solution.saveToDb();
     }
     public static void viewSolutions(int id){
-        Solution.loadAllByUserID(id);
+        for(Solution solution:Solution.loadAllByUserID(id)){
+            System.out.println(solution);
+        }
     }
+
     public static String getDescription() {
         System.out.println("Enter solution: ");
         return scann.nextLine();
     }
 
-    private static int getIntFromUser(Type type) {
+    public static int getIntFromUser(Type type) {
         switch (type) {
             case USER_ID:
                 System.out.println("Enter your id: ");
@@ -77,10 +89,9 @@ public class UserTools {
         return id;
     }
 
-    private enum Type{
+    public enum Type{
         USER_ID,
         SOLUTION_ID,
     }
-
 
 }

@@ -105,9 +105,11 @@ public class Exercise {
         }
         return null;
     }
-
-
-
+    public static void printAllExercises(){
+        for(Exercise exercise: loadAll()){
+            System.out.println(exercise);
+        }
+    }
 
     public static ArrayList<Exercise> loadAll (){
         try{
@@ -123,11 +125,7 @@ public class Exercise {
                 loadedExercise.description = rs.getString("description");
                 exercises.add(loadedExercise);
             }
-            for(Exercise exercise: exercises){
-                System.out.println(exercise);
-            }
             return exercises;
-
         }catch (SQLException e) {
         }
 

@@ -109,6 +109,10 @@ public class User {
             preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
+            if(!rs.next()) {
+                System.out.println("There is no user in the database with that id.");
+            }else {
+                rs.beforeFirst(); }
             while(rs.next()){
                 User loadedUser = new User();
                 loadedUser.id = rs.getInt("id");
@@ -123,6 +127,11 @@ public class User {
         return null;
     }
 
+    public static void printAllUsers(){
+        for(User user: loadAll()){
+            System.out.println(user);
+        }
+    }
 
 
 
@@ -141,11 +150,7 @@ public class User {
             loadedUser.password = rs.getString("password");
             users.add(loadedUser);
         }
-        for(User user: users){
-                System.out.println(user);
-        }
         return users;
-
         }catch (SQLException e) {
         }
 
@@ -169,7 +174,6 @@ public class User {
                 users.add(loadedUser);
             }
             return users;
-
         }catch (SQLException e) {
         }
 

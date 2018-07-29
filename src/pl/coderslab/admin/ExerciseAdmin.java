@@ -9,7 +9,7 @@ public class ExerciseAdmin {
 
     static void exerciseOptions() {
         while (true) {
-            Exercise.loadAll();
+            Exercise.printAllExercises();
             System.out.println("What would you like to do: \n(1) edit an existing exercise\n(2) add a new exercise\n(3) delete an exercise\n(0) quit the app");
             switch (getInt(scanner)) {
                 case 1:

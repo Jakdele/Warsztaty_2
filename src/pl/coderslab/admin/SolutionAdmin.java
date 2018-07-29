@@ -7,10 +7,9 @@ import static pl.coderslab.admin.AdminTools.scanner;
 import static pl.coderslab.admin.AdminTools.getInt;
 
 public class SolutionAdmin {
-   // private static final DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     static void solutionOptions() {
         while (true) {
-            Solution.loadAll();
+            Solution.printAllSolutions();
             System.out.println("What would you like to do: \n(1) add (add new solution for a user)\n(2) view user with specified id\n(0) quit the app");
             switch (getInt(scanner)){
                 case 1:
@@ -30,7 +29,7 @@ public class SolutionAdmin {
     }
 
     public static void addSolution() {
-        User.loadAll();
+        User.printAllUsers();
         int userId =getIntFromUser(Type.USER_ID);
         Exercise.loadAll();
         int exerciseId = getIntFromUser(Type.EXERCISE_ID);

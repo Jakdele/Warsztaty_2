@@ -12,8 +12,8 @@ public class UserAdmin {
 
     static void userOptions() {
         while (true) {
-            User.loadAll();
-            System.out.println("What would you like to do: \n(1) edit user\n(2) add a new user\n(3) delete a user\n(0) quit the app");
+            User.printAllUsers();
+            System.out.println("What would you like to do: \n(1) add a new user\n(2) edit user\n(3) delete a user\n(0) quit the app");
             switch (getInt(scanner)) {
                 case 1:
                     addUser();

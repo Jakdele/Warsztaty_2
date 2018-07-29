@@ -139,7 +139,11 @@ public class Solution {
         return null;
     }
 
-
+    public static void printAllSolutions(){
+        for (Solution solution: loadAll()){
+            System.out.println(solution);
+        }
+    }
 
 
     public static ArrayList<Solution> loadAll (){
@@ -191,9 +195,6 @@ public class Solution {
                 loadedSolution.users_id = rs.getInt("users_id");
                 solutions.add(loadedSolution);
             }
-            for(Solution solution:solutions){
-                System.out.println(solution);
-            }
             return solutions;
 
         }catch (SQLException e) {
@@ -222,9 +223,6 @@ public class Solution {
                     loadedSolution.users_id = rs.getInt("users_id");
                     solutions.add(loadedSolution);
             }
-            for (Solution solution : solutions) {
-                System.out.println(solution);
-            }
             return solutions;
 
         } catch (SQLException e) {
@@ -240,6 +238,10 @@ public class Solution {
             preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, exercise_id);
             ResultSet rs = preparedStatement.executeQuery();
+            if(!rs.next()) {
+                System.out.println("Wrong exercise id.");
+            }else {
+                rs.beforeFirst(); }
             while(rs.next()) {
                 Solution loadedSolution = new Solution();
                 loadedSolution.id = rs.getInt("id");

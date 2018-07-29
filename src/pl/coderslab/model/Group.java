@@ -86,6 +86,10 @@ public class Group {
             preparedStatement = DBManager.getInstance().getConnection().prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
+            if(!rs.next()) {
+                System.out.println("There is no group in the database with that id.");
+            }else {
+                rs.beforeFirst(); }
             while(rs.next()){
                 Group loadedGroup = new Group();
                 loadedGroup.id = rs.getInt("id");
@@ -98,7 +102,11 @@ public class Group {
     }
 
 
-
+    public static void printAllGroups(){
+        for(Group group: loadAll()){
+            System.out.println(group);
+        }
+    }
 
     public static ArrayList<Group> loadAll (){
         try{
@@ -113,11 +121,7 @@ public class Group {
                 loadedGroup.name = rs.getString("name");
                 groups.add(loadedGroup);
             }
-            for(Group group: groups){
-                System.out.println(group);
-            }
             return groups;
-
         }catch (SQLException e) {
         }
 
